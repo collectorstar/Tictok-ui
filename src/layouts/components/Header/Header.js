@@ -127,8 +127,7 @@ function Header() {
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case 'language': {
-                console.log(menuItem.title);
-                break;
+                return menuItem.title;
             }
             default:
         }

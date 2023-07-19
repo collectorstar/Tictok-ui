@@ -4,7 +4,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Menu.module.scss';
 import Header from './Header';
 import MenuItem from './MenuItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -14,18 +14,25 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
 
+    const handleSelectLanguage = (item) => {
+        let result = onChange(item);
+        handleBack();
+        history[0].data.find((x) => x.children).title = result;
+    };
+
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children;
             return (
                 <MenuItem
+                    isCheck={history[0].data.find((x) => x.children).title === item.title && item.code}
                     key={index}
                     data={item}
                     onClick={() => {
                         if (isParent) {
                             setHistory((prev) => [...prev, item.children]);
                         } else {
-                            onChange(item);
+                            handleSelectLanguage(item);
                         }
                     }}
                 />

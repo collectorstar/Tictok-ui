@@ -18,7 +18,9 @@ function Button({
     children,
     className,
     leftIcon,
+    isActiveLeftIcon = true,
     rightIcon,
+    isActiveRightIcon = true,
     onClick,
     ...passProps
 }) {
@@ -59,9 +61,9 @@ function Button({
 
     return (
         <Comp className={classes} {...props}>
-            {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+            {leftIcon && isActiveLeftIcon && <span className={cx('icon')}>{leftIcon}</span>}
             <span className={cx('title')}>{children}</span>
-            {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
+            {rightIcon && isActiveRightIcon && <span className={cx('icon')}>{rightIcon}</span>}
         </Comp>
     );
 }
